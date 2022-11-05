@@ -1,0 +1,1 @@
+/Users/jmarks/Documents/code/RustProjects/Rust-Essential-Training/primitive_data_types/target/debug/primitive_data_types: /Users/jmarks/Documents/code/RustProjects/Rust-Essential-Training/primitive_data_types/src/main.rs
