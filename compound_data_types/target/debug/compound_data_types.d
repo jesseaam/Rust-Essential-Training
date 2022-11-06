@@ -1,1 +1,0 @@
-/Users/jmarks/Documents/code/RustProjects/Rust-Essential-Training/compound_data_types/target/debug/compound_data_types: /Users/jmarks/Documents/code/RustProjects/Rust-Essential-Training/compound_data_types/src/main.rs
