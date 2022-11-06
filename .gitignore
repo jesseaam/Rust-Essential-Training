@@ -1,2 +1,5 @@
 # Generated files
 */target/
+
+# personal settings
+.vscode/*
