@@ -1,5 +1,8 @@
 fn main() {
     let test1 = "We need more space.";
+    trim_spaces(test1);
+    assert_eq!(trim_spaces(test1), "We need more space.");
+
     assert_eq!(trim_spaces(test1), "We need more space.");
     trim_spaces(test1);
 
@@ -25,36 +28,26 @@ fn main() {
 }
 
 fn trim_spaces(s: &str) -> &str {
-    let bytes = s.as_bytes();
-    let length = bytes.len();
-    let mut start_index: usize = 0;
-    let mut end_index: usize = length;
+    // let length = bytes.len();
+    let mut start: usize = 0;
+    let mut end: usize = 0;
 
-    if length > 0 {
-        // loop removes leading spaces
-        for (index, &item) in bytes.iter().enumerate() {
-            if item == b' ' {
-                continue;
-            } else {
-                start_index = index;
-                break
-            }
-        }
-        
-        // loop removes trailing spaces
-        for (index, &item) in bytes.iter().enumerate().rev() {
-            if item == b' ' {
-                end_index = index;
-                continue;
-            } else {
-                break
-            }
-        }
-
-        &s[start_index..end_index] //no spaces found; input is a single word
-    } else {
-        &s // the slice was empty to start with
+    // loop removes leading spaces
+    for (index, character) in s.chars().enumerate() {
+        if character != ' ' {
+            start = index;
+            break;
+        }     
     }
+    
+    // loop removes trailing spaces
+    for (index, character) in s.chars().rev().enumerate() {
+        if character != ' ' {
+            end = s.len() - index;
+            break
+        }     
+    }
+    &s[start..end] 
 }
 
 
