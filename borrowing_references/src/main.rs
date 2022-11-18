@@ -1,8 +1,24 @@
 fn main() {
-    let test1 = "We need more space.";
-    trim_spaces(test1);
-    assert_eq!(trim_spaces(test1), "We need more space.");
+    let test1 = String::from("jesse boy");
+    let test3 = String::from("jesse boy how are you?");
+    let test5 = String::from("jesse \u{20BF}  ");
+    // let (a, b) = pop_first(&test3);
+    // let (c, d) = pop_first(&b);
+    // println!("a is: '{a}'\nand b is: '{b}'");
+    // println!("c is: '{c}'\nand d is: '{d}'");
+    let n = 3;
+    let second = pop_nth(&test3, n);
+    println!("The whole string is: '{test3}'");
+    println!("The second word is: '{second}'");
 
+
+
+
+    /*
+    let test1 = " \tWe need more space.\n";
+    // println!("{test1}");
+    let new_string = trim_spaces(test1);
+    println!("{new_string}");
     assert_eq!(trim_spaces(test1), "We need more space.");
     trim_spaces(test1);
 
@@ -25,6 +41,7 @@ fn main() {
     assert_eq!(trim_spaces(&test7), "🚀");
 
     println!("Tests passed!");
+     */
 }
 
 fn trim_spaces(s: &str) -> &str {
@@ -34,15 +51,15 @@ fn trim_spaces(s: &str) -> &str {
 
     // loop removes leading spaces
     for (index, character) in s.chars().enumerate() {
-        if character != ' ' {
+        if character != '\t' && character != ' ' {
             start = index;
-            break;
-        }     
+            break
+        } 
     }
-    
+
     // loop removes trailing spaces
     for (index, character) in s.chars().rev().enumerate() {
-        if character != ' ' {
+        if character != ' ' && character != '\n' {
             end = s.len() - index;
             break
         }     
@@ -106,3 +123,40 @@ fn dangling_ref() -> &String {
     &new_fuel
 }
 */
+
+
+fn pop_first(a: &str) -> (&str, &str) {
+    let bytes = a.as_bytes();
+    let mut start = 0;
+    let mut end = 0;
+    let mut in_word = false; 
+    for (index, &byte) in bytes.iter().enumerate() {
+        if byte != b' ' && in_word == false {
+            start = index;
+            in_word = true;
+        }
+        if byte == b' ' && in_word == true {
+            end = index;
+            break;
+        }
+        end = index; // in case there are no spaces after the word
+    }
+
+    if  start == 0 && in_word == false {
+        println!("There are no characters in the borrowed string '{a}'");
+    }
+    return (&a[start..end], &a[end..]);
+}
+
+fn pop_nth(a: &str, n: u8) -> &str {
+
+    let mut count: u8 = 1;
+    let (b, c) = pop_first(&a);
+    loop {
+        let (b, c) = pop_first(&c);
+        count += 1;
+        if count == n {
+            return b;
+        }
+    }
+}
